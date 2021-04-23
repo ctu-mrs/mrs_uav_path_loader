@@ -1,0 +1,19 @@
+frame_id: "fcu_untilted"
+stamp: 0.0 # 0.0 = now, positive value = # of seconds in future
+
+# darpa 1
+path: [
+  # x, y, z, heading
+  0, 0, 0, 0,
+  0, 10, 0, 0,
+]
+
+use_heading: true
+fly_now: true
+stop_at_waypoints: false
+loop: true
+
+constraints:
+  override: false
+  speed: 3.0
+  acceleration: 2.0

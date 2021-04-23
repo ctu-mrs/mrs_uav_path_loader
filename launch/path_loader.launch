@@ -1,0 +1,23 @@
+<launch>
+
+  <arg name="file_name" default="" />
+  <arg if="$(eval arg('file_name') != '')" name="file" default="$(find path_loader)/paths/$(arg file_name).yaml" />
+  <arg if="$(eval arg('file_name') == '')" name="file" default="$(find path_loader)/paths/example.yaml" />
+  <arg name="UAV_NAME" default="$(optenv UAV_NAME uav1)" />
+  <arg name="standalone" default="true" />
+  <arg name="debug" default="false" />
+
+    <!-- define launch-prefix for debugging -->
+  <arg     if="$(arg debug)" name="launch_prefix" value="debug_roslaunch" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+
+  <node name="path_loader" pkg="nodelet" type="nodelet" args="standalone path_loader/PathLoader" output="screen" launch-prefix="$(arg launch_prefix)">
+
+    <rosparam file="$(arg file)" />
+
+      <!-- Services out -->
+    <remap from="~path_out" to="/$(arg UAV_NAME)/trajectory_generation/path" />
+
+  </node>
+
+</launch>
