@@ -8,7 +8,7 @@ path: [
   0, 10, 0, 0,
 ]
 
-use_heading: false
+use_heading: true
 fly_now: true
 stop_at_waypoints: false
 loop: true
