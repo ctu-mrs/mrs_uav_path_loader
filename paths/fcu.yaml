@@ -5,7 +5,7 @@ stamp: 0.0 # 0.0 = now, positive value = # of seconds in future
 path: [
   # x, y, z, heading
   0, 0, 0, 0,
-  0, 10, 0, 0,
+  0, -5, 0, 0,
 ]
 
 use_heading: true
@@ -15,5 +15,5 @@ loop: true
 
 constraints:
   override: false
-  speed: 3.0
-  acceleration: 2.0
+  speed: 1.0
+  acceleration: 1.0

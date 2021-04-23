@@ -87,7 +87,7 @@ void PathLoader::onInit() {
 
   mrs_msgs::PathSrv srv;
   srv.request.path.header.frame_id   = _frame_id_;
-  srv.request.path.header.stamp      = _stamp_ == 0 ? ros::Time::now() : (ros::Time::now() + ros::Duration(_stamp_));
+  srv.request.path.header.stamp      = _stamp_ == 0 ? ros::Time(0) : (ros::Time::now() + ros::Duration(_stamp_));
   srv.request.path.fly_now           = _fly_now_;
   srv.request.path.use_heading       = _use_heading_;
   srv.request.path.loop              = _loop_;
