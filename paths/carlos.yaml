@@ -1,0 +1,50 @@
+frame_id: "fcu_untilted"
+stamp: 0.0 # 0.0 = now, positive value = # of seconds in future
+
+path: [
+  # x, y, z, heading
+  0, 0, 0, 0,
+  1, 0, 0, 0,
+  1, 1, 0, 0,
+  0, 1, 0, 0,
+  -1, 1, 0, 0,
+  -1, 0, 0, 0,
+  -1, -1, 0, 0,
+  0, -1, 0, 0,
+  1, -1, 0, 0,
+  0, 0, 0, 0,
+
+  0, 0, 2, 0,
+  2, 0, 2, 0,
+  2, 2, 2, 0,
+  0, 2, 2, 0,
+  -2, 2, 2, 0,
+  -2, 0, 2, 0,
+  -2, -2, 2, 0,
+  0, -2, 2, 0,
+  2, -2, 2, 0,
+  0, 0, 2, 0,
+
+  0, 0, 5, 0,
+  4, 0, 5, 0,
+  4, 4, 5, 0,
+  0, 4, 5, 0,
+  -4, 4, 5, 0,
+  -4, 0, 5, 0,
+  -4, -4, 5, 0,
+  0, -4, 5, 0,
+  4, -4, 5, 0,
+  0, 0, 5, 0,
+
+  -2, -2, -1.5, 0,
+]
+
+use_heading: true
+fly_now: true
+stop_at_waypoints: true
+loop: false
+
+constraints:
+  override: true
+  speed: 1.0
+  acceleration: 1.0

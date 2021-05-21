@@ -1,0 +1,21 @@
+frame_id: ""
+stamp: 0.0 # 0.0 = now, positive value = # of seconds in future
+
+path: [
+  # x, y, z, heading
+  -5, 5, 5, -0.78,
+  -5, -5, 5, -0.78,
+  5, -5, 5, -0.78,
+  5, 5, 5, -0.78,
+  -5, 5, 5, -0.78,
+]
+
+use_heading: true
+fly_now: true
+stop_at_waypoints: false
+loop: false
+
+constraints:
+  override: true
+  speed: 5.0
+  acceleration: 2.5
