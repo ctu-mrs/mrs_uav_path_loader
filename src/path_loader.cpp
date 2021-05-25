@@ -33,10 +33,13 @@ private:
   bool            _fly_now_           = false;
   bool            _stop_at_waypoints_ = false;
   bool            _use_heading_       = false;
+  bool            _relax_heading_     = false;
   double          _stamp_;
   bool            _constraints_override_ = false;
-  double          _constraints_speed_;
-  double          _constraints_acceleration_;
+  double          _constraints_speed_horizontal_;
+  double          _constraints_speed_vertical_;
+  double          _constraints_acceleration_horizontal_;
+  double          _constraints_acceleration_vertical_;
 
   // | --------------------- service clients -------------------- |
 
@@ -61,12 +64,15 @@ void PathLoader::onInit() {
   param_loader.loadParam("fly_now", _fly_now_);
   param_loader.loadParam("frame_id", _frame_id_);
   param_loader.loadParam("use_heading", _use_heading_);
+  param_loader.loadParam("relax_heading", _relax_heading_);
   param_loader.loadParam("stamp", _stamp_);
   param_loader.loadParam("stop_at_waypoints", _stop_at_waypoints_);
   param_loader.loadParam("loop", _loop_);
   param_loader.loadParam("constraints/override", _constraints_override_);
-  param_loader.loadParam("constraints/speed", _constraints_speed_);
-  param_loader.loadParam("constraints/acceleration", _constraints_acceleration_);
+  param_loader.loadParam("constraints/speed_horizontal", _constraints_speed_horizontal_);
+  param_loader.loadParam("constraints/speed_vertical", _constraints_speed_vertical_);
+  param_loader.loadParam("constraints/acceleration_horizontal", _constraints_acceleration_horizontal_);
+  param_loader.loadParam("constraints/acceleration_vertical", _constraints_acceleration_vertical_);
 
   if (!param_loader.loadedSuccessfully()) {
     ROS_ERROR("[PathLoader]: could not load all parameters!");
@@ -90,17 +96,18 @@ void PathLoader::onInit() {
   srv.request.path.header.stamp      = _stamp_ == 0 ? ros::Time(0) : (ros::Time::now() + ros::Duration(_stamp_));
   srv.request.path.fly_now           = _fly_now_;
   srv.request.path.use_heading       = _use_heading_;
+  srv.request.path.relax_heading     = _relax_heading_;
   srv.request.path.loop              = _loop_;
   srv.request.path.stop_at_waypoints = _stop_at_waypoints_;
 
   if (_constraints_override_) {
-    srv.request.path.override_constraints      = _constraints_override_;
-    srv.request.path.override_max_velocity     = _constraints_speed_;
-    srv.request.path.override_max_acceleration = _constraints_acceleration_;
+    srv.request.path.override_constraints                 = _constraints_override_;
+    srv.request.path.override_max_velocity_horizontal     = _constraints_speed_horizontal_;
+    srv.request.path.override_max_velocity_vertical       = _constraints_speed_vertical_;
+    srv.request.path.override_max_acceleration_horizontal = _constraints_acceleration_horizontal_;
+    srv.request.path.override_max_acceleration_vertical   = _constraints_acceleration_vertical_;
   } else {
-    srv.request.path.override_constraints      = false;
-    srv.request.path.override_max_velocity     = 0;
-    srv.request.path.override_max_acceleration = 0;
+    srv.request.path.override_constraints = false;
   }
 
   for (int i = 0; i < _path_.rows(); i++) {

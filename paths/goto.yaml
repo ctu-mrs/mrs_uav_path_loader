@@ -3,11 +3,13 @@ stamp: 0.0 # 0.0 = now, positive value = # of seconds in future
 
 path: [
   # x, y, z, heading
-  -5, 5, 5, -0.78,
-  -5, -5, 5, -0.78,
-  5, -5, 5, -0.78,
-  5, 5, 5, -0.78,
-  -5, 5, 5, -0.78,
+
+  0.0, 0.0, 1.5, 0.0,
+  15.0, 15.0, 15.0, 0.0,
+  30.0, 30.0, 15.0, 0.0,
+  15.0, 15.0, 1.5, 0.0,
+  0.0, 0.0, 1.5, 0.0,
+
 ]
 
 use_heading: true
@@ -18,7 +20,7 @@ relax_heading: false
 
 constraints:
   override: true
-  speed_horizontal: 5.0
+  speed_horizontal: 2.5
   speed_vertical: 5.0
-  acceleration_horizontal: 2.5
-  acceleration_vertical: 2.5
+  acceleration_horizontal: 5.0
+  acceleration_vertical: 5.0

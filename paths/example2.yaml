@@ -34,8 +34,11 @@ use_heading: true
 fly_now: true
 stop_at_waypoints: false
 loop: false
+relax_heading: false
 
 constraints:
   override: false
-  speed: 3.0
-  acceleration: 2.0
+  speed_horizontal: 3.0
+  speed_vertical: 3.0
+  acceleration_horizontal: 2.0
+  acceleration_vertical: 2.0
