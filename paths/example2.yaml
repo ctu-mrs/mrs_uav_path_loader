@@ -42,3 +42,5 @@ constraints:
   speed_vertical: 3.0
   acceleration_horizontal: 2.0
   acceleration_vertical: 2.0
+  jerk_horizontal: 10.0
+  jerk_vertical: 10.0

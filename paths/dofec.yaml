@@ -1,0 +1,29 @@
+frame_id: "rtk_origin"
+stamp: 0.0 # 0.0 = now, positive value = # of seconds in future
+
+path: [
+  # x, y, z, heading
+  -14.26, 11.6, 2.5, 0.7,
+  -13.13, 12.3, 8.7, 0.7,
+  -13.13, 12.3, 8.7, 0.7,
+  -3.5, 1.4, 8.7, 0.7,
+  -3.5, 1.4, 14.65, 0.7,
+  -10.7, 11.17, 14.65, 0.7,
+  # -9.11, 12.94, 14.60, 0.70, # final point
+  -9.11, 12.94, 16.00, 0.70, # final point
+]
+
+use_heading: true
+fly_now: true
+stop_at_waypoints: false
+loop: false
+relax_heading: false
+
+constraints:
+  override: true
+  speed_horizontal: 1.0
+  speed_vertical: 1.0
+  acceleration_horizontal: 1.0
+  acceleration_vertical: 1.0
+  jerk_horizontal: 10.0
+  jerk_vertical: 10.0

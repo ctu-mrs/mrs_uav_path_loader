@@ -40,6 +40,8 @@ private:
   double          _constraints_speed_vertical_;
   double          _constraints_acceleration_horizontal_;
   double          _constraints_acceleration_vertical_;
+  double          _constraints_jerk_horizontal_;
+  double          _constraints_jerk_vertical_;
 
   // | --------------------- service clients -------------------- |
 
@@ -73,6 +75,8 @@ void PathLoader::onInit() {
   param_loader.loadParam("constraints/speed_vertical", _constraints_speed_vertical_);
   param_loader.loadParam("constraints/acceleration_horizontal", _constraints_acceleration_horizontal_);
   param_loader.loadParam("constraints/acceleration_vertical", _constraints_acceleration_vertical_);
+  param_loader.loadParam("constraints/jerk_horizontal", _constraints_jerk_horizontal_);
+  param_loader.loadParam("constraints/jerk_vertical", _constraints_jerk_vertical_);
 
   if (!param_loader.loadedSuccessfully()) {
     ROS_ERROR("[PathLoader]: could not load all parameters!");
@@ -106,6 +110,8 @@ void PathLoader::onInit() {
     srv.request.path.override_max_velocity_vertical       = _constraints_speed_vertical_;
     srv.request.path.override_max_acceleration_horizontal = _constraints_acceleration_horizontal_;
     srv.request.path.override_max_acceleration_vertical   = _constraints_acceleration_vertical_;
+    srv.request.path.override_max_jerk_horizontal         = _constraints_jerk_horizontal_;
+    srv.request.path.override_max_jerk_vertical           = _constraints_jerk_vertical_;
   } else {
     srv.request.path.override_constraints = false;
   }

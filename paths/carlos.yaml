@@ -25,16 +25,27 @@ path: [
   2, -2, 2, 0,
   0, 0, 2, 0,
 
-  0, 0, 5, 0,
-  4, 0, 5, 0,
-  4, 4, 5, 0,
-  0, 4, 5, 0,
-  -4, 4, 5, 0,
-  -4, 0, 5, 0,
-  -4, -4, 5, 0,
-  0, -4, 5, 0,
-  4, -4, 5, 0,
-  0, 0, 5, 0,
+  0, 0, 7, 0,
+  4, 0, 7, 0,
+  4, 4, 7, 0,
+  0, 4, 7, 0,
+  -4, 4, 7, 0,
+  -4, 0, 7, 0,
+  -4, -4, 7, 0,
+  0, -4, 7, 0,
+  4, -4, 7, 0,
+  0, 0, 7, 0,
+
+  0, 0, 7, 0,
+  5, 0, 7, 0,
+  5, 5, 7, 0,
+  0, 5, 7, 0,
+  -5, 5, 7, 0,
+  -5, 0, 7, 0,
+  -5, -5, 7, 0,
+  0, -5, 7, 0,
+  5, -5, 7, 0,
+  0, 0, 7, 0,
 
   -2, -2, -1.5, 0,
 ]
@@ -47,7 +58,9 @@ relax_heading: false
 
 constraints:
   override: true
-  speed_horizontal: 1.0
-  speed_vertical: 1.0
-  acceleration_horizontal: 1.0
-  acceleration_vertical: 1.0
+  speed_horizontal: 4.0
+  speed_vertical: 4.0
+  acceleration_horizontal: 3.0
+  acceleration_vertical: 3.0
+  jerk_horizontal: 10.0
+  jerk_vertical: 10.0
