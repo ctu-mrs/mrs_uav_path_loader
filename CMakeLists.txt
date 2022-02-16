@@ -15,15 +15,17 @@ find_package(Eigen3 REQUIRED)
 set(Eigen_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIRS})
 set(Eigen_LIBRARIES ${Eigen_LIBRARIES})
 
+set(LIBRARIES
+  PathLoader
+  )
+
 catkin_package(
-  #  INCLUDE_DIRS include
-  LIBRARIES PathLoader
+  LIBRARIES ${LIBRARIES}
   CATKIN_DEPENDS roscpp mrs_lib mrs_msgs
   DEPENDS Eigen
   )
 
 include_directories(
-  # include
   ${catkin_INCLUDE_DIRS}
   ${Eigen_INCLUDE_DIRS}
   )
@@ -39,4 +41,23 @@ add_dependencies(PathLoader
 target_link_libraries(PathLoader
   ${catkin_LIBRARIES}
   ${Eigen_LIBRARIES}
+  )
+
+## --------------------------------------------------------------
+## |                           Install                          |
+## --------------------------------------------------------------
+
+install(TARGETS ${LIBRARIES}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
+  )
+
+install(DIRECTORY launch paths
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  )
+
+install(DIRECTORY ./
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  FILES_MATCHING PATTERN "*.xml"
   )
