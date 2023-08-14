@@ -14,7 +14,7 @@
 
   <group ns="$(arg UAV_NAME)">
 
-    <node name="path_loader" pkg="nodelet" type="nodelet" args="standalone mrs_uav_path_loader/MrsUavPathLoader_PathLoader" output="screen" launch-prefix="$(arg launch_prefix)">
+    <node name="path_loader" pkg="nodelet" type="nodelet" args="standalone mrs_uav_path_loader/PathLoader" output="screen" launch-prefix="$(arg launch_prefix)">
 
       <rosparam file="$(arg file)" />
 
