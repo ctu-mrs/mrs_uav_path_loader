@@ -1,5 +1,5 @@
 <library path="lib/libMrsUavPathLoader_PathLoader">
-  <class name="path_loader/PathLoader" type="path_loader::PathLoader" base_class_type="nodelet::Nodelet">
+  <class name="mrs_uav_path_loader/PathLoader" type="path_loader::PathLoader" base_class_type="nodelet::Nodelet">
     <description>PathLoader</description>
   </class>
 </library>
