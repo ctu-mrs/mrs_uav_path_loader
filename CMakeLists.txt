@@ -1,14 +1,19 @@
-cmake_minimum_required(VERSION 3.1.2)
-project(path_loader)
+cmake_minimum_required(VERSION 3.5)
+project(mrs_uav_path_loader)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(catkin REQUIRED COMPONENTS
+set(CATKIN_DEPENDENCIES
+  cmake_modules
   roscpp
   nodelet
   mrs_lib
   mrs_msgs
+  )
+
+find_package(catkin REQUIRED COMPONENTS
+  ${CATKIN_DEPENDENCIES}
   )
 
 find_package(Eigen3 REQUIRED)
@@ -16,12 +21,12 @@ set(Eigen_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIRS})
 set(Eigen_LIBRARIES ${Eigen_LIBRARIES})
 
 set(LIBRARIES
-  PathLoader
+  MrsUavPathLoader_PathLoader
   )
 
 catkin_package(
   LIBRARIES ${LIBRARIES}
-  CATKIN_DEPENDS roscpp mrs_lib mrs_msgs
+  CATKIN_DEPENDS ${CATKIN_DEPENDENCIES}
   DEPENDS Eigen
   )
 
@@ -30,15 +35,16 @@ include_directories(
   ${Eigen_INCLUDE_DIRS}
   )
 
-add_library(PathLoader
-  src/path_loader.cpp)
+add_library(MrsUavPathLoader_PathLoader
+  src/path_loader.cpp
+  )
 
-add_dependencies(PathLoader
+add_dependencies(MrsUavPathLoader_PathLoader
   ${${PROJECT_NAME}_EXPORTED_TARGETS}
   ${catkin_EXPORTED_TARGETS}
   )
 
-target_link_libraries(PathLoader
+target_link_libraries(MrsUavPathLoader_PathLoader
   ${catkin_LIBRARIES}
   ${Eigen_LIBRARIES}
   )
@@ -57,7 +63,6 @@ install(DIRECTORY launch paths
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   )
 
-install(DIRECTORY ./
+install(FILES nodelets.xml
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-  FILES_MATCHING PATTERN "*.xml"
   )

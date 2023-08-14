@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>path_loader</name>
+  <name>mrs_uav_path_loader</name>
   <version>1.0.0</version>
   <description>The Path Loader package</description>
 
@@ -12,6 +12,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <depend>cmake_modules</depend>
   <depend>nodelet</depend>
   <depend>roscpp</depend>
   <depend>mrs_lib</depend>
