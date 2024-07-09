@@ -29,13 +29,16 @@ private:
 
   std::string     _frame_id_;
   Eigen::MatrixXd _path_;
-  bool            _loop_              = false;
-  bool            _fly_now_           = false;
-  bool            _stop_at_waypoints_ = false;
-  bool            _use_heading_       = false;
-  bool            _relax_heading_     = false;
+  bool            _loop_                       = false;
+  bool            _fly_now_                    = false;
+  bool            _stop_at_waypoints_          = false;
+  bool            _use_heading_                = false;
+  bool            _relax_heading_              = false;
+  bool            _dont_prepend_current_state_ = false;
   double          _stamp_;
   bool            _constraints_override_ = false;
+  double          _max_execution_time_;
+  double          _max_deviation_from_path_;
   double          _constraints_speed_horizontal_;
   double          _constraints_speed_vertical_;
   double          _constraints_acceleration_horizontal_;
@@ -70,6 +73,9 @@ void PathLoader::onInit() {
   param_loader.loadParam("stamp", _stamp_);
   param_loader.loadParam("stop_at_waypoints", _stop_at_waypoints_);
   param_loader.loadParam("loop", _loop_);
+  param_loader.loadParam("dont_prepend_current_state", _dont_prepend_current_state_);
+  param_loader.loadParam("max_execution_time", _max_execution_time_);
+  param_loader.loadParam("max_deviation_from_path", _max_deviation_from_path_);
   param_loader.loadParam("constraints/override", _constraints_override_);
   param_loader.loadParam("constraints/speed_horizontal", _constraints_speed_horizontal_);
   param_loader.loadParam("constraints/speed_vertical", _constraints_speed_vertical_);
@@ -96,13 +102,16 @@ void PathLoader::onInit() {
   // | ------------------- prepare the message ------------------ |
 
   mrs_msgs::PathSrv srv;
-  srv.request.path.header.frame_id   = _frame_id_;
-  srv.request.path.header.stamp      = _stamp_ == 0 ? ros::Time(0) : (ros::Time::now() + ros::Duration(_stamp_));
-  srv.request.path.fly_now           = _fly_now_;
-  srv.request.path.use_heading       = _use_heading_;
-  srv.request.path.relax_heading     = _relax_heading_;
-  srv.request.path.loop              = _loop_;
-  srv.request.path.stop_at_waypoints = _stop_at_waypoints_;
+  srv.request.path.header.frame_id            = _frame_id_;
+  srv.request.path.header.stamp               = _stamp_ == 0 ? ros::Time(0) : (ros::Time::now() + ros::Duration(_stamp_));
+  srv.request.path.fly_now                    = _fly_now_;
+  srv.request.path.use_heading                = _use_heading_;
+  srv.request.path.relax_heading              = _relax_heading_;
+  srv.request.path.loop                       = _loop_;
+  srv.request.path.stop_at_waypoints          = _stop_at_waypoints_;
+  srv.request.path.dont_prepend_current_state = _dont_prepend_current_state_;
+  srv.request.path.max_execution_time         = _max_execution_time_;
+  srv.request.path.max_deviation_from_path    = _max_deviation_from_path_;
 
   if (_constraints_override_) {
     srv.request.path.override_constraints                 = _constraints_override_;

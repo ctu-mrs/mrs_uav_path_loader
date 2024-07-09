@@ -17,11 +17,14 @@ path: [
 
 ]
 
-use_heading: false
-fly_now: false
+use_heading: true
+fly_now: true
 stop_at_waypoints: false
 loop: false
 relax_heading: false
+dont_prepend_current_state: false
+max_execution_time: 3.0
+max_deviation_from_path: 0.5
 
 constraints:
   override: false
