@@ -121,6 +121,8 @@ int main(int argc, char **argv)
   // конструктор выполняет всю работу синхронно
   auto node = std::make_shared<PathLoaderNode>();
 
+  rclcpp::spin(node);
+
   rclcpp::shutdown();
   return 0;
 }
