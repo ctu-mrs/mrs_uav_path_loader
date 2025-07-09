@@ -1,68 +1,47 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 project(mrs_uav_path_loader)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+############################################################
+# зависимости пакета
+############################################################
 
-set(CATKIN_DEPENDENCIES
-  cmake_modules
-  roscpp
-  nodelet
-  mrs_lib
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(Eigen3 REQUIRED)
+find_package(mrs_msgs REQUIRED)
+
+############################################################
+# include-директории
+############################################################
+include_directories(
+  include
+  ${EIGEN3_INCLUDE_DIRS}
+)
+
+############################################################
+# исполняемые файлы
+############################################################
+add_executable(path_loader_node src/path_loader_node.cpp)
+ament_target_dependencies(path_loader_node
+  rclcpp
+  Eigen3
   mrs_msgs
   )
 
-find_package(catkin REQUIRED COMPONENTS
-  ${CATKIN_DEPENDENCIES}
-  )
+add_executable(dummy_path_server src/dummy_path_server.cpp)
+ament_target_dependencies(dummy_path_server
+  rclcpp
+  mrs_msgs)
 
-find_package(Eigen3 REQUIRED)
-set(Eigen_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIRS})
-set(Eigen_LIBRARIES ${Eigen_LIBRARIES})
+############################################################
+# установка
+############################################################
+install(TARGETS
+  path_loader_node
+  dummy_path_server
+  DESTINATION lib/${PROJECT_NAME})
 
-set(LIBRARIES
-  MrsUavPathLoader_PathLoader
-  )
+install(DIRECTORY launch params
+DESTINATION share/${PROJECT_NAME})
 
-catkin_package(
-  LIBRARIES ${LIBRARIES}
-  CATKIN_DEPENDS ${CATKIN_DEPENDENCIES}
-  DEPENDS Eigen
-  )
-
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-  ${Eigen_INCLUDE_DIRS}
-  )
-
-add_library(MrsUavPathLoader_PathLoader
-  src/path_loader.cpp
-  )
-
-add_dependencies(MrsUavPathLoader_PathLoader
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-  ${catkin_EXPORTED_TARGETS}
-  )
-
-target_link_libraries(MrsUavPathLoader_PathLoader
-  ${catkin_LIBRARIES}
-  ${Eigen_LIBRARIES}
-  )
-
-## --------------------------------------------------------------
-## |                           Install                          |
-## --------------------------------------------------------------
-
-install(TARGETS ${LIBRARIES}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
-  )
-
-install(DIRECTORY launch paths
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-  )
-
-install(FILES nodelets.xml
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-  )
+ament_package()
