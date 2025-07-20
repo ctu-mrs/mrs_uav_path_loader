@@ -36,7 +36,7 @@ def generate_launch_description():
 
     # Default paths file
     this_pkg = get_package_share_directory("mrs_uav_path_loader")
-    default_paths = PathJoinSubstitution([this_pkg, "paths", "example.yaml"])
+    default_paths = PathJoinSubstitution([this_pkg, "paths", "example2.yaml"])
 
     # Container with our component
     container = ComposableNodeContainer(

@@ -73,7 +73,7 @@ install(
 )
 
 install(
-  DIRECTORY launch params
+  DIRECTORY launch paths
   DESTINATION share/${PROJECT_NAME}
 )
 
