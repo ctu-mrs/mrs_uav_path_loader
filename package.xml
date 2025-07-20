@@ -1,26 +1,19 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-
   <name>mrs_uav_path_loader</name>
   <version>2.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="tsoyartem30@gmail.com">root</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Ported path loader component for ROS 2</description>
+  <maintainer email="tsoyartem30@gmail.com">Artyom Tsoy</maintainer>
+  <license>BSD 3-Clause</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <depend>rclcpp</depend>
-  <depend>std_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>yaml-cpp</depend> 
+  <depend>rclcpp_components</depend>
+  <depend>mrs_msgs</depend>
   <depend>eigen3_cmake_module</depend>
-  <!-- <depend>mrs_msgs</depend> -->
-  <build_depend>mrs_msgs</build_depend>
-  <exec_depend>mrs_msgs</exec_depend>
-
-  <test_depend>ament_lint_auto</test_depend>
-  <test_depend>ament_lint_common</test_depend>
+  <depend>mrs_lib</depend>
 
   <export>
     <build_type>ament_cmake</build_type>

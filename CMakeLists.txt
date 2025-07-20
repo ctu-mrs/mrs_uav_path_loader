@@ -1,47 +1,80 @@
 cmake_minimum_required(VERSION 3.8)
 project(mrs_uav_path_loader)
 
-############################################################
-# зависимости пакета
-############################################################
+# C++20
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(Eigen3 REQUIRED)
-find_package(mrs_msgs REQUIRED)
+# Warnings
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra)
+endif()
 
-############################################################
-# include-директории
-############################################################
+## --------------------------------------------------------------
+## |                       Dependencies                         |
+## --------------------------------------------------------------
+set(DEPENDENCIES
+  rclcpp
+  rclcpp_components
+  mrs_msgs
+  Eigen3
+  mrs_lib
+)
+
+foreach(dep IN LISTS DEPENDENCIES)
+  find_package(${dep} REQUIRED)
+endforeach()
+
+## --------------------------------------------------------------
+## |                     Include dirs                           |
+## --------------------------------------------------------------
 include_directories(
+  include
+  ${EIGEN3_INCLUDE_DIRS}
+  ${mrs_lib_INCLUDE_DIRS}
+)
+
+## --------------------------------------------------------------
+## |                           Compile                          |
+## --------------------------------------------------------------
+add_library(path_loader_component SHARED
+  src/path_loader.cpp        # <-- поменяй на path_loader_node.cpp если так называется файл
+)
+
+target_include_directories(path_loader_component PUBLIC
   include
   ${EIGEN3_INCLUDE_DIRS}
 )
 
-############################################################
-# исполняемые файлы
-############################################################
-add_executable(path_loader_node src/path_loader_node.cpp)
-ament_target_dependencies(path_loader_node
-  rclcpp
-  Eigen3
-  mrs_msgs
-  )
+ament_target_dependencies(path_loader_component
+  ${DEPENDENCIES}
+)
 
-add_executable(dummy_path_server src/dummy_path_server.cpp)
-ament_target_dependencies(dummy_path_server
-  rclcpp
-  mrs_msgs)
+# Register component & create executable wrapper
+rclcpp_components_register_node(
+  path_loader_component
+  PLUGIN "path_loader::PathLoaderNode"
+  EXECUTABLE path_loader_node_component
+)
 
-############################################################
-# установка
-############################################################
-install(TARGETS
-  path_loader_node
-  dummy_path_server
-  DESTINATION lib/${PROJECT_NAME})
+## --------------------------------------------------------------
+## |                           Install                          |
+## --------------------------------------------------------------
+install(
+  TARGETS path_loader_component path_loader_node_component
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
+)
 
-install(DIRECTORY launch params
-DESTINATION share/${PROJECT_NAME})
+install(
+  DIRECTORY include/
+  DESTINATION include
+)
+
+install(
+  DIRECTORY launch params
+  DESTINATION share/${PROJECT_NAME}
+)
 
 ament_package()
